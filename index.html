@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+</head>
+<body>
+  
+  
+  <input type="text" id="username" name="username" placeholder="Enter the chapter You would like to view">
+<input type="submit" value="view" onclick="func()">
+  <div id = "show"></div>
+  <script>
+  function html5_storage_support() {
+  		//check to see if this browser support local storage: return true if so, false if not
+		try {
+			return 'localStorage' in window && window['localStorage'] !== null;
+		} catch (e) {
+			return false;
+		}
+	}
+	if (html5_storage_support()) {
+  			//get the user-entered values from the two text fields:
+  			var users = [];
+  			for(var i=0;i<17;i++){
+        var arr = {n1:"content",n2:[{q1:i,op:[i,i+1,i+2],ans:i+2,hint:"HINT"}]};
+  			//create two local-storage keys (name1, name2) and assign
+  			//each the respective value from the text fields:
+  			
+  			users.push(arr);
+  			
+  			}
+  			localStorage.setItem("users", JSON.stringify(users));
+  		
+  		}
+  		
+  		function func()
+  		{
+  		  users = JSON.parse(localStorage.getItem("users") || "[]");
+  		  var x = document.getElementById("username").value; 
+  		  var obj = users[x];
+  		  document.getElementById("show").innerHTML ="Content:"+obj.n1+"<br>";
+  		  document.getElementById("show").innerHTML+="Questions"+"<br>";
+  		  for(var i=0;i<obj.n2.length;i++)
+  		  {
+  		    j = i+1;
+  		    document.getElementById("show").innerHTML+="qn"+j+")"+obj.n2[i].q1;
+  		    for(k=0;k<obj.n2[i].op.length;k++)
+  		    {
+  		      l=k+1;
+  		      document.getElementById("show").innerHTML+="<br>"+"option"+l+": "+obj.n2[i].op[k];
+  		    }
+  		    document.getElementById("show").innerHTML+="<br>"+"Answer: "+obj.n2[i].ans;
+  		    document.getElementById("show").innerHTML+="<br>"+"Hint: "+obj.n2[i].hint;
+  		    
+  		    }
+  		    
+  		  }
+  		  
+  		  
+  		  
+  		  
+  		  
+  		
+  		</script>
+  
+  </body>
+  </html>
